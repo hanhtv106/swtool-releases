@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-<title>A-000001 · 3D Viewer</title>
+<title>Mô hình 3D SOLIDWORKS · 3D Viewer</title>
 <meta name="description" content="Xem mô hình 3D cơ khí (GLB) trực tiếp trên trình duyệt — SW Tool"/>
-<meta property="og:title" content="A-000001 · 3D Viewer"/>
+<meta property="og:title" content="Mô hình 3D SOLIDWORKS · 3D Viewer"/>
 <meta property="og:description" content="Xoay 3D, đo kích thước L/R/Ø, ghi chú Note và vẽ phác trực tiếp trên trình duyệt."/>
 <meta property="og:locale" content="vi_VN"/>
 <style>
@@ -172,7 +172,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.5 3.5 7v10L12 21.5 20.5 17V7zM3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg>
       </span>
       <div class="titles">
-        <h1 class="title" id="modelTitleText">A-000001</h1>
+        <h1 class="title" id="modelTitleText">Mô hình 3D SOLIDWORKS</h1>
         <span class="subtitle">Mô hình 3D · SW Tool</span>
       </div>
     </div>
@@ -417,7 +417,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui
         <div class="noJsPreviewHint" id="noJsPreviewHint">
           <b>📱 Đang mở trong khung xem tài liệu tĩnh của Zalo / Điện thoại?</b><br/>
           Zalo coi tệp <code>.html</code> là tài liệu tĩnh nên ẩn nút mở trình duyệt. Để xoay 3D ngay:<br/>
-          <a id="openInBrowserDirectLink" href="http://192.168.2.13:18580/s/f6PL-irGSgXsIzz0r_juEDuR0whWBaSt" target="_blank" rel="noopener" class="openBrowserCtaBtn">🌐 BẤM VÀO ĐÂY ĐỂ MỞ TRÊN TRÌNH DUYỆT</a>
+          <a id="openInBrowserDirectLink" href="https://hanhtv106.github.io/swtool-releases/viewer.html" target="_blank" rel="noopener" class="openBrowserCtaBtn">🌐 BẤM VÀO ĐÂY ĐỂ MỞ TRÊN TRÌNH DUYỆT</a>
           <b>Hoặc mở tệp Offline khi đã tắt máy tính:</b><br/>
           • <b>Trên Android:</b> Bấm nút <b>⋯</b> (góc trên phải Zalo) ➔ <b>Mở bằng ứng dụng khác</b> ➔ chọn <b>Chrome</b>.<br/>
           • <b>Trên iPhone / iPad:</b> Bấm nút xanh ở trên hoặc dùng <b>Link 4G / Mã QR</b> gửi kèm trong tin nhắn.
@@ -437,11 +437,11 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui
 </script>
 
 <script>
-const MODEL_URL = "";
-const COMMENTS_URL = "";
-const DIRECT_WEB_URL = "http://192.168.2.13:18580/s/f6PL-irGSgXsIzz0r_juEDuR0whWBaSt";
-const INITIAL_SUMMARY = {"meshes":436,"triangles":931128,"declaredMaterials":97,"widthMm":2454.9,"heightMm":7031.02,"depthMm":12169.16,"generator":"SOLIDWORKSGLTF"};
-let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Author":"K\u1EF9 s\u01B0","IsAdmin":false,"Body":"Note test","CreatedAt":"2026-11-02T08:02:03.8741385Z","Anchor":{"Version":2,"Point":[4.771076924871855,6.087665360758331,14.983879279706807],"CameraPosition":[0.7000000000000008,0.5050000000000013,6.998814000495883],"CameraTarget":[2.5773949731662658,4.619417904343781,12.250242776989799],"Strokes":[],"RichStrokes":[{"Mode":"ellipse","Color":"#ef4444","Text":null,"Points3d":[[4.863053331528003,6.087665360758333,14.906408621103585],[4.868733948843285,6.0665968969015145,14.916851765312664],[4.870551205190071,6.046338082295383,14.929963775371823],[4.868435264426084,6.027667451823978,14.94524076408779],[4.86246744096825,6.011302507345706,14.962095645351644],[4.852877074925261,5.997872144499298,14.97988069552874],[4.840032718685808,5.9878924845971095,14.997912445114745],[4.8244279736569755,5.981747040372524,15.015497944085391],[4.80666252143898,5.979671977800686,15.031961391577296],[4.78741907839758,5.981747040372524,15.046670106536157],[4.767437159257008,5.9878924845971095,15.05905884129484],[4.747484657963846,5.997872144499298,15.06865150372426],[4.7283283379533,6.011302507345706,15.075079453186875],[4.710704365860387,6.027667451823978,15.078095667189677],[4.695290021049,6.046338082295383,15.077584234320048],[4.682677668145776,6.0665968969015145,15.073564808656354],[4.673351992799698,6.087665360758333,15.066191854472729],[4.667671375484416,6.108733824615151,15.05574871026365],[4.66585411913763,6.128992639221282,15.042636700204492],[4.6679700599016165,6.147663269692687,15.027359711488524],[4.673937883359451,6.16402821417096,15.01050483022467],[4.68352824940244,6.177458577017368,14.992719780047574],[4.696372605641893,6.187438236919556,14.97468803046157],[4.711977350670725,6.193583681144141,14.957102531490923],[4.729742802888721,6.195658743715979,14.940639083999018],[4.748986245930121,6.193583681144141,14.925930369040158],[4.768968165070693,6.187438236919556,14.913541634281474],[4.788920666363855,6.177458577017368,14.903948971852055],[4.808076986374401,6.16402821417096,14.897521022389439],[4.825700958467314,6.147663269692687,14.894504808386637],[4.841115303278701,6.128992639221282,14.895016241256267],[4.853727656181925,6.108733824615151,14.89903566691996],[4.863053331528003,6.087665360758333,14.906408621103585]]}]}}];
+const MODEL_URL = {{JsonSerializer.Serialize(modelUrl)}};
+const COMMENTS_URL = {{JsonSerializer.Serialize(commentsUrl)}};
+const DIRECT_WEB_URL = {{JsonSerializer.Serialize(rawShareUrl)}};
+const INITIAL_SUMMARY = {"meshes":436,"triangles":931128,"declaredMaterials":27,"widthMm":1256.34,"heightMm":1663.61,"depthMm":1636.3,"generator":"SW Tool GLB Exporter"};
+let notesData = [];
 </script>
 <script>
 (function() {
@@ -464,11 +464,12 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
   let cam = { yaw: 0.65, pitch: 0.45, dist: 0.25, target: [0,0,0] };
   let showEdges = true, showShadow = true, showAo = false, debugMode = 'off';
   let activeTool = 'navigate', measureKind = 'distance', unitFactor = 1000.0, calibScale = 1.0;
-  let pendingPick = null, measurements = [], selectedNoteAnchor = null, activeNoteId = null;
-  let sketchStrokes = [], activeStroke = null;
+  let pendingPick = null, measurements = [], selectedNoteAnchor = null, selectedNoteMeshIdx = -1, activeNoteId = null;
+  let sketchStrokes = [], activeStroke = null, sketchTargetMeshIdx = -1;
   let selectedMeshIdx = -1, hoverMeshIdx = -1, contextMenuMeshIdx = -1;
   let explodeFactor = 0.0, undoHideStack = [], invertWheelZoom = false;
   let lastPointerClientX = 400, lastPointerClientY = 300;
+  let currentModelStorageKey = '';
 
   // --- BỘ KHỞI TẠO SHADER WEBGL (INSTANCED LOCAL-SPACE BUFFERS + MODEL MATRIX) ---
   let glProgFace = null, glProgEdge = null, shadowGpuBuf = null;
@@ -1172,6 +1173,16 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     hoverMeshIdx = -1;
     explodeFactor = 0.0;
     undoHideStack = [];
+    selectedNoteAnchor = null;
+    selectedNoteMeshIdx = -1;
+    sketchTargetMeshIdx = -1;
+    sketchStrokes = [];
+    activeStroke = null;
+    activeNoteId = null;
+    const activeCard = document.getElementById('activeNoteCard');
+    if (activeCard) activeCard.style.display = 'none';
+    loadModelNotesFromLocalStorage(false);
+    for (const n of notesData) resolveNoteMeshIndex(n);
     const expInput = document.getElementById('explodeRangeInput');
     if (expInput) expInput.value = '0';
     const expLbl = document.getElementById('explodePctLabel');
@@ -1179,6 +1190,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     updatePartContextUI();
     updateHiddenPartsBanner();
     renderPartsList();
+    renderNotesList();
     fitCamera(false);
     updateStatsUI(parsed.length, totalTris);
   }
@@ -1635,7 +1647,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     return res ? res.point : null;
   }
 
-  function pickSurfacePoint(clientX, clientY) {
+  function pickSurfacePointDetailed(clientX, clientY) {
     const rect = canvas.getBoundingClientRect();
     const w = rect.width || canvas.clientWidth || 800;
     const h = rect.height || canvas.clientHeight || 600;
@@ -1652,10 +1664,10 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       fwd[2] + right[2] * ndcX * aspect * tanHalfFov + up[2] * ndcY * tanHalfFov
     ]);
 
-    const hitPoint = raycastMeshesWorld(eye, rayDir);
-    if (hitPoint) return hitPoint;
+    const hit = raycastMeshesDetailed(eye, rayDir, true);
+    if (hit) return hit;
 
-    let bestPt = null, bestDist2 = 32 * 32;
+    let bestPt = null, bestMeshIdx = -1, bestDist2 = 32 * 32;
     for (const m of meshes) {
       if (!m.visible) continue;
       const g = m.geom;
@@ -1672,10 +1684,16 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
         const pr = projectPoint(pt);
         if (!pr) continue;
         const d2 = (pr[0]-mx)*(pr[0]-mx) + (pr[1]-my)*(pr[1]-my);
-        if (d2 < bestDist2) { bestDist2 = d2; bestPt = pt; }
+        if (d2 < bestDist2) { bestDist2 = d2; bestPt = pt; bestMeshIdx = m.id; }
       }
     }
-    return bestPt || [...bounds.center];
+    if (bestPt) return { point: bestPt, meshIdx: bestMeshIdx, distance: 0 };
+    return null;
+  }
+
+  function pickSurfacePoint(clientX, clientY) {
+    const detailed = pickSurfacePointDetailed(clientX, clientY);
+    return detailed ? detailed.point : [...bounds.center];
   }
 
   function renderScene() {
@@ -1941,7 +1959,196 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     ctx.restore();
   }
 
+  // --- HỆ THỐNG GẮN KẾT NOTE CHẶT VÀO TỪNG CHI TIẾT (PART-BOUND NOTE + BÙ TÁCH CỤM EXPLODE + CHE KHUẤT 3D OCCLUSION) ---
+  function getMeshExplodeOffset(meshIdx) {
+    if (meshIdx == null || meshIdx < 0 || meshIdx >= meshes.length) return [0, 0, 0];
+    const m = meshes[meshIdx];
+    const scale = explodeFactor * 1.65;
+    if (!m || !m.explodeVec || scale === 0) return [0, 0, 0];
+    return [m.explodeVec[0] * scale, m.explodeVec[1] * scale, m.explodeVec[2] * scale];
+  }
+
+  function toBaseMeshPoint(worldPt, meshIdx) {
+    if (!worldPt) return null;
+    const off = getMeshExplodeOffset(meshIdx);
+    return [worldPt[0] - off[0], worldPt[1] - off[1], worldPt[2] - off[2]];
+  }
+
+  function toCurrentMeshWorldPoint(basePt, meshIdx) {
+    if (!basePt) return null;
+    const off = getMeshExplodeOffset(meshIdx);
+    return [basePt[0] + off[0], basePt[1] + off[1], basePt[2] + off[2]];
+  }
+
+  function resolveNoteMeshIndex(note) {
+    if (!note) return -1;
+    if (typeof note._resolvedMeshIdx === 'number' && note._resolvedMeshIdx >= 0 && note._resolvedMeshIdx < meshes.length) {
+      return note._resolvedMeshIdx;
+    }
+    const anc = note.Anchor || note.anchor;
+    if (!anc || meshes.length === 0) return -1;
+
+    const rawIdx = anc.MeshIndex ?? anc.meshIndex;
+    const rawName = (anc.PartName || anc.partName || '').trim();
+    if (typeof rawIdx === 'number' && rawIdx >= 0 && rawIdx < meshes.length) {
+      if (!rawName || meshes[rawIdx].name === rawName) {
+        note._resolvedMeshIdx = rawIdx;
+        return rawIdx;
+      }
+    }
+    if (rawName) {
+      const byName = meshes.find(m => m.name === rawName);
+      if (byName) {
+        note._resolvedMeshIdx = byName.id;
+        return byName.id;
+      }
+    }
+    if (typeof rawIdx === 'number' && rawIdx >= 0 && rawIdx < meshes.length) {
+      note._resolvedMeshIdx = rawIdx;
+      return rawIdx;
+    }
+
+    const pt = anc.Point || anc.point;
+    if (!Array.isArray(pt) || pt.length < 3) return -1;
+    let bestIdx = -1, bestDist2 = Infinity;
+    const pad = Math.max(0.005, bounds.radius * 0.04);
+    for (const m of meshes) {
+      const bMin = m.baseMin || m.min, bMax = m.baseMax || m.max;
+      if (!bMin || !bMax) continue;
+      const dxBox = Math.max(0, bMin[0] - pt[0], pt[0] - bMax[0]);
+      const dyBox = Math.max(0, bMin[1] - pt[1], pt[1] - bMax[1]);
+      const dzBox = Math.max(0, bMin[2] - pt[2], pt[2] - bMax[2]);
+      const boxDist2 = dxBox*dxBox + dyBox*dyBox + dzBox*dzBox;
+      if (boxDist2 > bestDist2 && boxDist2 > pad * pad) continue;
+      const g = m.geom;
+      if (!g || !g.rawPos) continue;
+      const rp = g.rawPos, bm = m.baseWorldMat || m.worldMat;
+      const step = Math.max(1, Math.floor(g.vertCount / 180)) * 3;
+      for (let i = 0; i < rp.length; i += step) {
+        const lx = rp[i], ly = rp[i+1], lz = rp[i+2];
+        const wx = bm[0]*lx + bm[4]*ly + bm[8]*lz  + bm[12];
+        const wy = bm[1]*lx + bm[5]*ly + bm[9]*lz  + bm[13];
+        const wz = bm[2]*lx + bm[6]*ly + bm[10]*lz + bm[14];
+        const d2 = (wx-pt[0])*(wx-pt[0]) + (wy-pt[1])*(wy-pt[1]) + (wz-pt[2])*(wz-pt[2]);
+        if (d2 < bestDist2) { bestDist2 = d2; bestIdx = m.id; }
+      }
+    }
+    if (bestIdx >= 0) note._resolvedMeshIdx = bestIdx;
+    return bestIdx;
+  }
+
+  function getNotePartLabel(note) {
+    const anc = note?.Anchor || note?.anchor;
+    const mIdx = resolveNoteMeshIndex(note);
+    if (mIdx >= 0 && mIdx < meshes.length) return meshes[mIdx].name;
+    return anc?.PartName || anc?.partName || '';
+  }
+
+  function isNoteVisibleInCurrentContext(note) {
+    if (!note) return false;
+    const mIdx = resolveNoteMeshIndex(note);
+    // 1. Khi chi tiết sở hữu Note đang bị Ẩn (Tab / Cô lập chi tiết khác) -> Ẩn hoàn toàn Note của chi tiết đó
+    if (mIdx >= 0 && mIdx < meshes.length && !meshes[mIdx].visible) {
+      return false;
+    }
+    // 2. Khi người dùng đang nhấp chọn kiểm tra riêng một chi tiết (selectedMeshIdx >= 0),
+    //    chỉ hiển thị các Note thuộc đúng chi tiết đang chọn, không để Note của chi tiết khác hiện đè sang!
+    if (selectedMeshIdx >= 0 && mIdx >= 0 && mIdx !== selectedMeshIdx) {
+      return false;
+    }
+    return true;
+  }
+
+  function isWorldPointOccluded(worldPt, ownerMeshIdx) {
+    if (!worldPt) return false;
+    const { eye } = getCameraVectors();
+    const vx = worldPt[0] - eye[0], vy = worldPt[1] - eye[1], vz = worldPt[2] - eye[2];
+    const distToPt = Math.hypot(vx, vy, vz);
+    if (distToPt < 1e-5) return false;
+    const rayDir = [vx / distToPt, vy / distToPt, vz / distToPt];
+    const hit = raycastMeshesDetailed(eye, rayDir, true);
+    if (!hit) return false;
+    // Nếu tia nhìn từ camera chạm vào một chi tiết KHÁC nằm chắn phía trước -> điểm neo Note bị chi tiết đó che khuất!
+    const tolOther = Math.max(1e-4, distToPt * 0.0012);
+    if (ownerMeshIdx >= 0 && hit.meshIdx !== ownerMeshIdx && hit.distance < distToPt - tolOther) {
+      return true;
+    }
+    // Nếu tia nhìn chạm vào mặt trước của chính chi tiết đó ở khoảng cách xa hơn bề dày mặt -> Note nằm ở mặt sau bị khuất!
+    const tolSelf = Math.max(2e-4, bounds.radius * 0.022);
+    if (hit.distance < distToPt - tolSelf) {
+      return true;
+    }
+    return false;
+  }
+
+  function syncActiveNoteWithPartVisibility() {
+    if (!activeNoteId) return;
+    const activeNote = notesData.find(n => n.Id === activeNoteId);
+    if (!activeNote || !isNoteVisibleInCurrentContext(activeNote)) {
+      activeNoteId = null;
+      const card = document.getElementById('activeNoteCard');
+      if (card) card.style.display = 'none';
+    }
+  }
+
+  function computeModelStorageKey() {
+    const urlParams = new URLSearchParams(window.location.search || '');
+    const cloudSrc = (urlParams.get('src') || '').trim();
+    const titleStr = (document.getElementById('modelTitleText')?.textContent || 'model').trim();
+    const baseKey = cloudSrc || MODEL_URL || `${titleStr}_${meshes.length}_${totalTriangleCount}`;
+    return 'swtool_notes_v3_' + baseKey.replace(/[^a-zA-Z0-9_.-]/g, '_').slice(-96);
+  }
+
+  function saveModelNotesToLocalStorage() {
+    try {
+      const key = currentModelStorageKey || computeModelStorageKey();
+      currentModelStorageKey = key;
+      localStorage.setItem(key, JSON.stringify(notesData));
+    } catch {}
+  }
+
+  function loadModelNotesFromLocalStorage(resetExisting) {
+    try {
+      const key = computeModelStorageKey();
+      currentModelStorageKey = key;
+      if (resetExisting) {
+        notesData = [];
+      }
+      const raw = localStorage.getItem(key);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          notesData = parsed;
+        }
+      }
+    } catch {}
+  }
+
+  async function deleteNoteById(noteId) {
+    if (!noteId) return;
+    notesData = notesData.filter(n => n.Id !== noteId && n.ParentId !== noteId);
+    if (activeNoteId === noteId) {
+      activeNoteId = null;
+      const card = document.getElementById('activeNoteCard');
+      if (card) card.style.display = 'none';
+    }
+    saveModelNotesToLocalStorage();
+    if (COMMENTS_URL) {
+      try {
+        await fetch(COMMENTS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete', commentId: noteId })
+        });
+      } catch {}
+    }
+    if (typeof renderNotesList === 'function') renderNotesList();
+    renderOverlays();
+    renderSketch();
+  }
+
   function renderOverlays() {
+    syncActiveNoteWithPartVisibility();
     labelsContainer.innerHTML = '';
     svgLayer.innerHTML = '';
 
@@ -1967,13 +2174,22 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     }
 
     const roots = notesData.filter(n => !n.ParentId && n.Anchor && (n.Anchor.Point || n.Anchor.point));
+    const visibleRoots = roots.filter(n => isNoteVisibleInCurrentContext(n));
     document.getElementById('noteCountChip').style.display = roots.length > 0 ? 'inline-flex' : 'none';
-    document.getElementById('noteCountVal').textContent = roots.length;
+    document.getElementById('noteCountVal').textContent = selectedMeshIdx >= 0
+      ? `${visibleRoots.length}/${roots.length}`
+      : String(roots.length);
 
     roots.forEach((n, idx) => {
-      const pt3 = n.Anchor.Point || n.Anchor.point;
-      const pr = projectPoint(pt3);
+      if (!isNoteVisibleInCurrentContext(n)) return;
+      const mIdx = resolveNoteMeshIndex(n);
+      const basePt = n.Anchor.Point || n.Anchor.point;
+      const worldPt = toCurrentMeshWorldPoint(basePt, mIdx);
+      if (activeNoteId !== n.Id && isWorldPointOccluded(worldPt, mIdx)) return;
+
+      const pr = projectPoint(worldPt);
       if (!pr) return;
+      const partName = getNotePartLabel(n);
       const pin = document.createElement('div');
       pin.className = 'notePin';
       if (activeNoteId === n.Id) {
@@ -1983,7 +2199,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       pin.style.left = pr[0] + 'px';
       pin.style.top = pr[1] + 'px';
       pin.textContent = (idx + 1);
-      pin.title = `Note #${idx + 1}: ${n.Body || ''}`;
+      pin.title = `Note #${idx + 1}${partName ? ' [' + partName + ']' : ''}: ${n.Body || ''}`;
       pin.onclick = () => showNotePopup(n, idx + 1, pr, true);
       labelsContainer.appendChild(pin);
 
@@ -2000,19 +2216,24 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       }
     });
 
-    // Hiển thị ghim nháp tại điểm neo đang chọn khi chuẩn bị lưu Note
+    // Hiển thị ghim nháp tại điểm neo đang chọn khi chuẩn bị lưu Note (chỉ hiện trên đúng chi tiết đang chọn)
     if ((activeTool === 'note' || sketchStrokes.length > 0) && selectedNoteAnchor) {
-      const prDraft = projectPoint(selectedNoteAnchor);
-      if (prDraft) {
-        const draftPin = document.createElement('div');
-        draftPin.className = 'notePin';
-        draftPin.style.background = '#ef4444';
-        draftPin.style.opacity = '0.9';
-        draftPin.style.pointerEvents = 'none';
-        draftPin.style.left = prDraft[0] + 'px';
-        draftPin.style.top = prDraft[1] + 'px';
-        draftPin.textContent = '+';
-        labelsContainer.appendChild(draftPin);
+      const draftMeshOk = selectedNoteMeshIdx < 0 ||
+        (meshes[selectedNoteMeshIdx]?.visible && (selectedMeshIdx < 0 || selectedMeshIdx === selectedNoteMeshIdx));
+      if (draftMeshOk) {
+        const draftWorldPt = toCurrentMeshWorldPoint(selectedNoteAnchor, selectedNoteMeshIdx);
+        const prDraft = projectPoint(draftWorldPt);
+        if (prDraft) {
+          const draftPin = document.createElement('div');
+          draftPin.className = 'notePin';
+          draftPin.style.background = '#ef4444';
+          draftPin.style.opacity = '0.9';
+          draftPin.style.pointerEvents = 'none';
+          draftPin.style.left = prDraft[0] + 'px';
+          draftPin.style.top = prDraft[1] + 'px';
+          draftPin.textContent = '+';
+          labelsContainer.appendChild(draftPin);
+        }
       }
     }
   }
@@ -2023,32 +2244,56 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
   }
 
   function showNotePopup(note, num, pr, flyCamera = false) {
+    if (!note) return;
+    const mIdx = resolveNoteMeshIndex(note);
+    if (flyCamera && mIdx >= 0 && mIdx < meshes.length) {
+      if (!meshes[mIdx].visible) {
+        meshes[mIdx].visible = true;
+        updateHiddenPartsBanner();
+      }
+      if (selectedMeshIdx >= 0 && selectedMeshIdx !== mIdx) {
+        selectedMeshIdx = mIdx;
+        updatePartContextUI();
+        renderPartsList();
+      }
+    }
     activeNoteId = note.Id;
-    if (flyCamera && note && note.Anchor) {
+    if (flyCamera && note.Anchor) {
       const camPos = note.Anchor.CameraPosition || note.Anchor.cameraPosition;
-      const camTgt = note.Anchor.CameraTarget || note.Anchor.cameraTarget || note.Anchor.Point || note.Anchor.point;
-      if (Array.isArray(camPos) && camPos.length >= 3) {
+      const baseTgt = note.Anchor.CameraTarget || note.Anchor.cameraTarget || note.Anchor.Point || note.Anchor.point;
+      const camTgt = toCurrentMeshWorldPoint(baseTgt, mIdx);
+      if (Array.isArray(camPos) && camPos.length >= 3 && Array.isArray(camTgt)) {
         animateCameraTo(camPos[0], camPos[1], camPos[2], camTgt, 300);
       } else if (Array.isArray(camTgt) && camTgt.length >= 3) {
         animateCameraTo(cam.yaw, cam.pitch, cam.dist, camTgt, 260);
       }
     }
+    const partName = getNotePartLabel(note);
+    const partBadge = partName
+      ? `<div style="margin-top:4px;font-size:11px;color:var(--muted);font-weight:600;">🧩 Chi tiết: <span style="color:var(--text);">${escapeHtml(partName)}</span></div>`
+      : '';
     const richSt = getNoteRichStrokes(note);
     const strokeBadge = richSt.length > 0
-      ? `<div style="margin-top:5px;font-size:11px;color:var(--accent);font-weight:600;">✏️ Đính kèm ${richSt.length} nét vẽ đánh dấu trên 3D</div>`
+      ? `<div style="margin-top:4px;font-size:11px;color:var(--accent);font-weight:600;">✏️ Đính kèm ${richSt.length} nét vẽ đánh dấu trên chi tiết</div>`
       : '';
     const card = document.getElementById('activeNoteCard');
     card.style.display = 'block';
-    card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">` +
+    card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:4px;">` +
       `<b>#${num} · ${escapeHtml(note.Author || 'Kỹ sư')}</b>` +
-      `<button type="button" class="sheetClose" id="closeActiveNoteBtn">✕</button></div>` +
+      `<div style="display:flex;align-items:center;gap:4px;">` +
+      `<button type="button" class="partIconBtn" id="deleteActiveNoteBtn" title="Xóa ghi chú Note này" style="color:var(--danger);border-color:rgba(220,38,38,0.35);">🗑️ Xóa</button>` +
+      `<button type="button" class="sheetClose" id="closeActiveNoteBtn">✕</button></div></div>` +
       `<p style="font-size:12.5px;line-height:1.45;">${escapeHtml(note.Body || '')}</p>` +
+      partBadge +
       strokeBadge;
     document.getElementById('closeActiveNoteBtn').onclick = () => {
       activeNoteId = null;
       card.style.display = 'none';
       renderOverlays();
       renderSketch();
+    };
+    document.getElementById('deleteActiveNoteBtn').onclick = () => {
+      deleteNoteById(note.Id);
     };
     renderOverlays();
     renderSketch();
@@ -2058,7 +2303,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     const d = document.createElement('div'); d.textContent = s; return d.innerHTML;
   }
 
-  // --- BỘ CÔNG CỤ VẼ PHÁC KIỂU ZALO BÁM DÍNH TRỰC TIẾP LÊN BỀ MẶT 3D (3D-ANCHORED MARKUP) ---
+  // --- BỘ CÔNG CỤ VẼ PHÁC KIỂU ZALO BÁM DÍNH TRỰC TIẾP LÊN BỀ MẶT CHI TIẾT 3D (PART-BOUND 3D MARKUP) ---
   let sketchMode = 'freehand';
   let sketchColor = '#ef4444';
   let strokeAnchorPlanePt = null;
@@ -2088,8 +2333,11 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
 
   function pickSketch3DPoint(clientX, clientY, anchorPt, preferSurface) {
     if (preferSurface) {
-      const surfaceHit = raycastMeshOnly(clientX, clientY);
-      if (surfaceHit) return surfaceHit;
+      const { eye, rayDir } = getScreenRay(clientX, clientY);
+      const hit = raycastMeshesDetailed(eye, rayDir, false);
+      if (hit && (sketchTargetMeshIdx < 0 || hit.meshIdx === sketchTargetMeshIdx)) {
+        return hit.point;
+      }
     }
     const planeOrigin = anchorPt || raycastMeshOnly(clientX, clientY) || [...bounds.center];
     const { eye, fwd, rayDir } = getScreenRay(clientX, clientY);
@@ -2154,29 +2402,43 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     sctx.lineJoin = 'round';
 
     const drawList = [];
-    // 1. Nét vẽ 3D đã lưu trong các Note (luôn hiển thị bám trên chi tiết, nổi bật khi chọn Note)
+    // 1. Nét vẽ 3D đã lưu trong Note: chỉ hiển thị khi Note đó đang được mở (activeNoteId === n.Id)
+    //    hoặc khi người dùng nhấp chọn đúng chi tiết sở hữu Note (selectedMeshIdx === mIdx) và không bị che khuất!
     for (const n of notesData) {
-      const savedStrokes = getNoteRichStrokes(n);
+      if (!isNoteVisibleInCurrentContext(n)) continue;
+      const mIdx = resolveNoteMeshIndex(n);
       const isSelectedNote = (activeNoteId === n.Id);
+      const isOwnerPartSelected = (selectedMeshIdx >= 0 && mIdx === selectedMeshIdx);
+      if (!isSelectedNote && !isOwnerPartSelected) continue;
+
+      const basePt = n.Anchor?.Point || n.Anchor?.point;
+      const worldPt = toCurrentMeshWorldPoint(basePt, mIdx);
+      if (!isSelectedNote && isWorldPointOccluded(worldPt, mIdx)) continue;
+
+      const savedStrokes = getNoteRichStrokes(n);
       for (const st of savedStrokes) {
+        const rawPts = st.points3d || st.Points3d || [];
         drawList.push({
           mode: st.mode || st.Mode || 'freehand',
           color: st.color || st.Color || '#ef4444',
           text: st.text || st.Text || '',
-          points3d: st.points3d || st.Points3d || [],
-          alpha: (!activeNoteId || isSelectedNote) ? 0.95 : 0.45,
-          width: isSelectedNote ? 3.6 : 2.6
+          points3d: rawPts.map(p => toCurrentMeshWorldPoint(p, mIdx)),
+          alpha: isSelectedNote ? 0.96 : 0.78,
+          width: isSelectedNote ? 3.6 : 2.8
         });
       }
     }
-    // 2. Nét vẽ đang phác thảo hiện tại
+    // 2. Nét vẽ đang phác thảo hiện tại (bù độ lệch tách cụm theo chi tiết đang vẽ)
     const working = activeStroke ? [...sketchStrokes, activeStroke] : sketchStrokes;
     for (const st of working) {
+      const mIdx = (typeof st.meshIdx === 'number' && st.meshIdx >= 0) ? st.meshIdx : sketchTargetMeshIdx;
+      if (mIdx >= 0 && mIdx < meshes.length && !meshes[mIdx].visible) continue;
+      const rawPts = st.points3d || [];
       drawList.push({
         mode: st.mode || 'freehand',
         color: st.color || '#ef4444',
         text: st.text || '',
-        points3d: st.points3d || [],
+        points3d: rawPts.map(p => toCurrentMeshWorldPoint(p, mIdx)),
         alpha: 1.0,
         width: 3.3
       });
@@ -2252,11 +2514,14 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
 
   function openQuickNoteComposer(focusBody = false) {
     const count = sketchStrokes.length;
+    const targetIdx = selectedNoteMeshIdx >= 0 ? selectedNoteMeshIdx : (sketchTargetMeshIdx >= 0 ? sketchTargetMeshIdx : selectedMeshIdx);
+    const partLabel = (targetIdx >= 0 && meshes[targetIdx]) ? ` [${meshes[targetIdx].name}]` : '';
     if (count > 0) {
       selectedNoteAnchor = computeAnchorFromStrokes(sketchStrokes);
-      quickNoteBadgeText.textContent = `✏️ Đã vẽ ${count} nét trên chi tiết 3D ➔ Tiếp theo ghi Note:`;
+      if (targetIdx >= 0) selectedNoteMeshIdx = targetIdx;
+      quickNoteBadgeText.textContent = `✏️ Đã vẽ ${count} nét trên chi tiết${partLabel} ➔ Ghi Note:`;
     } else {
-      quickNoteBadgeText.textContent = `📍 Đã chọn điểm trên chi tiết 3D ➔ Nhập Note hoặc bấm [✏️ Vẽ phác]:`;
+      quickNoteBadgeText.textContent = `📍 Đã chọn điểm trên chi tiết${partLabel} ➔ Nhập Note hoặc bấm [✏️ Vẽ phác]:`;
     }
     quickNoteComposer.style.display = 'block';
     renderOverlays();
@@ -2282,7 +2547,25 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       document.getElementById('noteAuthorInput').value = author;
     } catch {}
 
-    const anchorPt = (sketchStrokes.length > 0 ? computeAnchorFromStrokes(sketchStrokes) : selectedNoteAnchor) || [...bounds.center];
+    let targetMeshIdx = selectedNoteMeshIdx >= 0
+      ? selectedNoteMeshIdx
+      : (sketchTargetMeshIdx >= 0 ? sketchTargetMeshIdx : selectedMeshIdx);
+    if (targetMeshIdx < 0 && meshes.length === 1) {
+      targetMeshIdx = 0;
+    }
+
+    let anchorPt = (sketchStrokes.length > 0 ? computeAnchorFromStrokes(sketchStrokes) : selectedNoteAnchor);
+    if (!anchorPt) {
+      if (targetMeshIdx >= 0 && meshes[targetMeshIdx]) {
+        const m = meshes[targetMeshIdx];
+        const bMin = m.baseMin || m.min, bMax = m.baseMax || m.max;
+        anchorPt = [(bMin[0]+bMax[0])*0.5, (bMin[1]+bMax[1])*0.5, (bMin[2]+bMax[2])*0.5];
+      } else {
+        anchorPt = [...bounds.center];
+      }
+    }
+    const targetPartName = (targetMeshIdx >= 0 && meshes[targetMeshIdx]) ? meshes[targetMeshIdx].name : null;
+
     const richStrokesPayload = sketchStrokes.map(s => ({
       mode: s.mode || 'freehand',
       color: s.color || '#ef4444',
@@ -2290,15 +2573,18 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       points3d: (s.points3d || []).map(p => [Number(p[0]), Number(p[1]), Number(p[2])])
     }));
     const camPos = [cam.yaw, cam.pitch, cam.dist];
-    const camTgt = [...cam.target];
+    const camTgt = toBaseMeshPoint([...cam.target], targetMeshIdx) || [...cam.target];
 
     const newItem = {
       Id: String(Date.now()),
       Author: author,
       Body: body,
       CreatedAt: new Date().toISOString(),
+      _resolvedMeshIdx: targetMeshIdx,
       Anchor: {
-        Version: 2,
+        Version: 3,
+        MeshIndex: targetMeshIdx >= 0 ? targetMeshIdx : null,
+        PartName: targetPartName,
         Point: anchorPt,
         CameraPosition: camPos,
         CameraTarget: camTgt,
@@ -2316,7 +2602,9 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
             name: author,
             body,
             anchor: {
-              v: 2,
+              v: 3,
+              meshIndex: targetMeshIdx >= 0 ? targetMeshIdx : null,
+              partName: targetPartName,
               point: anchorPt,
               cameraPosition: camPos,
               cameraTarget: camTgt,
@@ -2336,10 +2624,12 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     } else {
       notesData.push(newItem);
     }
+    saveModelNotesToLocalStorage();
 
-    // Chuyển các nét phác thảo tạm vào Note vừa lưu và hiển thị ghim Note ngay lập tức
+    // Chuyển các nét phác thảo tạm vào Note vừa lưu và hiển thị ghim Note ngay trên đúng chi tiết đó
     sketchStrokes = [];
     activeStroke = null;
+    sketchTargetMeshIdx = -1;
     quickNoteBodyInput.value = '';
     document.getElementById('noteBodyInput').value = '';
     quickNoteComposer.style.display = 'none';
@@ -2347,7 +2637,8 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     const roots = notesData.filter(n => !n.ParentId && n.Anchor && (n.Anchor.Point || n.Anchor.point));
     const latestNote = roots[roots.length - 1] || newItem;
     renderNotesList();
-    showNotePopup(latestNote, roots.length || 1, projectPoint(anchorPt) || [200, 200], false);
+    const worldAnchor = toCurrentMeshWorldPoint(anchorPt, targetMeshIdx);
+    showNotePopup(latestNote, roots.length || 1, projectPoint(worldAnchor) || [200, 200], false);
     return true;
   }
 
@@ -2475,13 +2766,17 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     // - Nhấp kéo TRÊN bề mặt chi tiết 3D -> vẽ nét bám dính lên chi tiết 3D
     // - Nhấp kéo NGOÀI khoảng trắng nền (hoặc khi bật nút 🔄 Xoay 3D / Chuột giữa / Chuột phải / 2 ngón) -> tự động Xoay mô hình 3D mượt mà!
     if (activeTool === 'sketch' && sketchMode !== 'orbit' && e.button === 0 && activePointers.size === 0) {
-      const surfaceHit = raycastMeshOnly(e.clientX, e.clientY);
-      if (surfaceHit) {
-        strokeAnchorPlanePt = surfaceHit;
+      const { eye, rayDir } = getScreenRay(e.clientX, e.clientY);
+      const hit = raycastMeshesDetailed(eye, rayDir, false);
+      if (hit && hit.point) {
+        sketchTargetMeshIdx = hit.meshIdx;
+        selectedNoteMeshIdx = hit.meshIdx;
+        strokeAnchorPlanePt = hit.point;
+        const baseStartPt = toBaseMeshPoint(hit.point, hit.meshIdx);
         if (sketchMode === 'text') {
           const txt = window.prompt('Nhập nội dung chữ gắn vào vị trí này trên chi tiết 3D:', '');
           if (txt && txt.trim()) {
-            sketchStrokes.push({ mode: 'text', color: sketchColor, points3d: [surfaceHit], text: txt.trim() });
+            sketchStrokes.push({ mode: 'text', color: sketchColor, meshIdx: hit.meshIdx, points3d: [baseStartPt], text: txt.trim() });
             renderSketch();
             openQuickNoteComposer(true);
           }
@@ -2491,10 +2786,12 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
         activeStroke = {
           mode: sketchMode,
           color: sketchColor,
-          start3d: surfaceHit,
+          meshIdx: hit.meshIdx,
+          startWorld3d: hit.point,
+          start3d: baseStartPt,
           camRight: right,
           camUp: up,
-          points3d: [surfaceHit]
+          points3d: [baseStartPt]
         };
         renderSketch();
         return;
@@ -2519,12 +2816,14 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     lastPointerClientY = e.clientY;
     if (activeTool === 'sketch' && activeStroke && activePointers.size === 0) {
       const preferSurf = activeStroke.mode === 'freehand';
-      const cur3d = pickSketch3DPoint(e.clientX, e.clientY, strokeAnchorPlanePt, preferSurf);
+      const curWorld3d = pickSketch3DPoint(e.clientX, e.clientY, strokeAnchorPlanePt, preferSurf);
+      const mIdx = activeStroke.meshIdx !== undefined ? activeStroke.meshIdx : sketchTargetMeshIdx;
       if (activeStroke.mode === 'freehand') {
-        activeStroke.points3d.push(cur3d);
-        strokeAnchorPlanePt = cur3d;
+        activeStroke.points3d.push(toBaseMeshPoint(curWorld3d, mIdx));
+        strokeAnchorPlanePt = curWorld3d;
       } else {
-        activeStroke.points3d = build3DShapePoints(activeStroke.mode, activeStroke.start3d, cur3d, activeStroke.camRight, activeStroke.camUp);
+        const worldPts = build3DShapePoints(activeStroke.mode, activeStroke.startWorld3d || activeStroke.start3d, curWorld3d, activeStroke.camRight, activeStroke.camUp);
+        activeStroke.points3d = worldPts.map(p => toBaseMeshPoint(p, mIdx));
       }
       renderSketch();
       return;
@@ -2638,16 +2937,19 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
             renderOverlays();
           }
         } else if (activeTool === 'note') {
-          const pt = pickSurfacePoint(e.clientX, e.clientY);
-          selectedNoteAnchor = pt;
+          const hit = pickSurfacePointDetailed(e.clientX, e.clientY);
+          selectedNoteMeshIdx = hit.meshIdx >= 0 ? hit.meshIdx : selectedMeshIdx;
+          selectedNoteAnchor = toBaseMeshPoint(hit.point, selectedNoteMeshIdx);
           renderOverlays();
           openQuickNoteComposer(true);
         } else if (activeTool === 'navigate') {
           // Nhấp Chuột Trái ở chế độ xem mặc định -> Chọn chi tiết & hiện Thanh Ngữ cảnh Nổi kiểu SOLIDWORKS
           const hit = raycastMeshesDetailed(eye, rayDir, false);
           selectedMeshIdx = hit ? hit.meshIdx : -1;
+          syncActiveNoteWithPartVisibility();
           updatePartContextUI();
           renderPartsList();
+          renderNotesList();
           renderScene();
         }
       }
@@ -2693,6 +2995,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     if (e.key === 'Escape') {
       hideSwContextMenu();
       selectedMeshIdx = -1;
+      syncActiveNoteWithPartVisibility();
       updatePartContextUI();
       if (activeTool !== 'navigate') {
         activeTool = 'navigate';
@@ -2701,6 +3004,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
         closeAllSheets();
       }
       renderPartsList();
+      renderNotesList();
       renderScene();
       return;
     }
@@ -2716,8 +3020,10 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
   // Sự kiện Thanh Ngữ cảnh Chi tiết, Menu Chuột Phải & Bảng Cây Chi tiết / Tách cụm
   document.getElementById('closePartContextBtn').onclick = () => {
     selectedMeshIdx = -1;
+    syncActiveNoteWithPartVisibility();
     updatePartContextUI();
     renderPartsList();
+    renderNotesList();
     renderScene();
   };
   document.getElementById('ctxHidePartBtn').onclick = () => { if (selectedMeshIdx >= 0) hideMeshByIndex(selectedMeshIdx); };
@@ -2861,26 +3167,47 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     };
   });
 
-  // Note 3D
+  // Note 3D gắn chặt theo từng chi tiết (Part-Bound Notes)
   function renderNotesList() {
     const box = document.getElementById('notesListBox');
+    if (!box) return;
     const roots = notesData.filter(n => !n.ParentId);
     if (roots.length === 0) {
-      box.innerHTML = '<p class="toolHint">Chưa có Note nào. Hãy vẽ khoanh vùng lên mô hình rồi nhập Note.</p>';
+      box.innerHTML = '<p class="toolHint">Chưa có Note nào trên mô hình này. Hãy nhấp chọn chi tiết hoặc vẽ khoanh vùng lên chi tiết 3D rồi nhập Note.</p>';
       return;
     }
     box.innerHTML = '';
     roots.forEach((n, idx) => {
+      const mIdx = resolveNoteMeshIndex(n);
+      const partLabel = getNotePartLabel(n);
+      const isHiddenContext = !isNoteVisibleInCurrentContext(n);
       const richCount = getNoteRichStrokes(n).length;
       const badge = richCount > 0 ? ` <span style="color:var(--accent);font-size:11px;">(✏️ ${richCount} nét)</span>` : '';
+      const partTag = partLabel ? `<div style="font-size:10.5px;color:var(--muted);margin-top:2px;">🧩 ${escapeHtml(partLabel)}${isHiddenContext ? ' · <i>(Đang ẩn/lọc)</i>' : ''}</div>` : '';
       const li = document.createElement('div');
-      li.style.cssText = 'padding:6px 8px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;cursor:pointer;transition:0.15s;';
-      li.innerHTML = `<b>#${idx+1} · ${escapeHtml(n.Author)}</b>${badge}<br/><span>${escapeHtml(n.Body)}</span>`;
-      li.onclick = () => {
-        const pt3 = n.Anchor?.Point || n.Anchor?.point;
-        const pr = pt3 ? projectPoint(pt3) : [200, 200];
+      const isSelectedNote = activeNoteId === n.Id;
+      li.style.cssText = `padding:6px 8px;border:1px solid ${isSelectedNote ? 'var(--accent)' : 'var(--border)'};border-radius:8px;margin-bottom:6px;cursor:pointer;transition:0.15s;opacity:${isHiddenContext ? '0.58' : '1'};display:flex;justify-content:space-between;align-items:flex-start;gap:6px;`;
+      const contentDiv = document.createElement('div');
+      contentDiv.style.cssText = 'flex:1;min-width:0;';
+      contentDiv.innerHTML = `<b>#${idx+1} · ${escapeHtml(n.Author)}</b>${badge}<br/><span>${escapeHtml(n.Body)}</span>${partTag}`;
+      contentDiv.onclick = () => {
+        const basePt3 = n.Anchor?.Point || n.Anchor?.point;
+        const worldPt3 = toCurrentMeshWorldPoint(basePt3, mIdx);
+        const pr = worldPt3 ? projectPoint(worldPt3) : [200, 200];
         showNotePopup(n, idx + 1, pr, true);
       };
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'partIconBtn';
+      delBtn.title = 'Xóa ghi chú Note này';
+      delBtn.textContent = '🗑️';
+      delBtn.style.cssText = 'color:var(--danger);flex-shrink:0;';
+      delBtn.onclick = e => {
+        e.stopPropagation();
+        deleteNoteById(n.Id);
+      };
+      li.appendChild(contentDiv);
+      li.appendChild(delBtn);
       box.appendChild(li);
     });
   }
@@ -2893,10 +3220,15 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       activeTool = 'note';
       if (sketchStrokes.length > 0) {
         selectedNoteAnchor = computeAnchorFromStrokes(sketchStrokes);
-        document.getElementById('noteSheetHintText').textContent = `✨ Đang đính kèm ${sketchStrokes.length} nét vừa vẽ trên 3D vào Note này:`;
-      } else if (!selectedNoteAnchor) {
-        selectedNoteAnchor = [...bounds.center];
-        document.getElementById('noteSheetHintText').textContent = 'Nhấp vào chi tiết 3D để chọn vị trí hoặc bấm [✏️ Vẽ lên 3D] để khoanh vùng trước.';
+        if (sketchTargetMeshIdx >= 0) selectedNoteMeshIdx = sketchTargetMeshIdx;
+        const pName = (selectedNoteMeshIdx >= 0 && meshes[selectedNoteMeshIdx]) ? ` [${meshes[selectedNoteMeshIdx].name}]` : '';
+        document.getElementById('noteSheetHintText').textContent = `✨ Đang đính kèm ${sketchStrokes.length} nét vẽ trên chi tiết${pName} vào Note này:`;
+      } else if (selectedMeshIdx >= 0 && meshes[selectedMeshIdx]) {
+        selectedNoteMeshIdx = selectedMeshIdx;
+        if (!selectedNoteAnchor) selectedNoteAnchor = [...meshes[selectedMeshIdx].partCenter];
+        document.getElementById('noteSheetHintText').textContent = `📍 Đang ghim Note vào chi tiết [${meshes[selectedMeshIdx].name}]. Nhấp lên bề mặt để đổi điểm ghim:`;
+      } else {
+        document.getElementById('noteSheetHintText').textContent = 'Nhấp trực tiếp vào bề mặt chi tiết 3D cần ghi chú hoặc bấm [✏️ Vẽ lên 3D] để khoanh vùng trước.';
       }
       renderNotesList();
       showSheetEl(el);
@@ -2968,6 +3300,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
   };
   document.getElementById('clearSketchBtn').onclick = () => {
     sketchStrokes = [];
+    sketchTargetMeshIdx = -1;
     activeStroke = null;
     quickNoteComposer.style.display = 'none';
     renderSketch();
@@ -3029,12 +3362,18 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       octx.fillText(label, mx, my);
     }
 
-    // Lớp 4: Chân ghim Note (#1, #2...) & Bảng tóm tắt nội dung Note trên ảnh báo cáo
-    const roots = notesData.filter(n => !n.ParentId && n.Anchor && (n.Anchor.Point || n.Anchor.point));
-    roots.forEach((n, idx) => {
-      const pt3 = n.Anchor.Point || n.Anchor.point;
-      const pr = projectPoint(pt3);
+    // Lớp 4: Chân ghim Note (#1, #2...) của các chi tiết đang hiển thị & Bảng tóm tắt nội dung Note trên ảnh báo cáo
+    const allRoots = notesData.filter(n => !n.ParentId && n.Anchor && (n.Anchor.Point || n.Anchor.point));
+    const visibleReportNotes = [];
+    allRoots.forEach((n, idx) => {
+      if (!isNoteVisibleInCurrentContext(n)) return;
+      const mIdx = resolveNoteMeshIndex(n);
+      const basePt3 = n.Anchor.Point || n.Anchor.point;
+      const worldPt3 = toCurrentMeshWorldPoint(basePt3, mIdx);
+      if (activeNoteId !== n.Id && isWorldPointOccluded(worldPt3, mIdx)) return;
+      const pr = projectPoint(worldPt3);
       if (!pr) return;
+      visibleReportNotes.push({ note: n, num: idx + 1, partLabel: getNotePartLabel(n) });
       octx.fillStyle = (activeNoteId === n.Id) ? '#0284c7' : '#f59e0b';
       octx.strokeStyle = '#ffffff';
       octx.lineWidth = 2;
@@ -3049,9 +3388,9 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       octx.fillText(String(idx + 1), pr[0], pr[1]);
     });
 
-    if (roots.length > 0) {
-      const boxX = 14, boxY = 14, boxW = Math.min(340, cssW - 28);
-      const maxNotes = Math.min(roots.length, 6);
+    if (visibleReportNotes.length > 0) {
+      const boxX = 14, boxY = 14, boxW = Math.min(360, cssW - 28);
+      const maxNotes = Math.min(visibleReportNotes.length, 6);
       const rowH = 22;
       const boxH = 28 + maxNotes * rowH;
       octx.fillStyle = isDark ? 'rgba(15, 23, 42, 0.88)' : 'rgba(255, 255, 255, 0.92)';
@@ -3067,14 +3406,16 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       octx.font = 'bold 12px system-ui, "Segoe UI", sans-serif';
       octx.textAlign = 'left';
       octx.textBaseline = 'middle';
-      octx.fillText(`📝 Ghi chú kỹ thuật (${roots.length} Note):`, boxX + 10, boxY + 14);
+      octx.fillText(`📝 Ghi chú kỹ thuật (${visibleReportNotes.length} Note):`, boxX + 10, boxY + 14);
 
       octx.fillStyle = isDark ? '#f1f5f9' : '#0f172a';
       octx.font = '11.5px system-ui, "Segoe UI", sans-serif';
       for (let i = 0; i < maxNotes; i++) {
-        const n = roots[i];
-        const lineText = `#${i + 1} [${n.Author || 'Kỹ sư'}]: ${n.Body || ''}`;
-        const clipped = lineText.length > 48 ? lineText.slice(0, 47) + '…' : lineText;
+        const item = visibleReportNotes[i];
+        const n = item.note;
+        const pTag = item.partLabel ? ` (${item.partLabel})` : '';
+        const lineText = `#${item.num} [${n.Author || 'Kỹ sư'}]${pTag}: ${n.Body || ''}`;
+        const clipped = lineText.length > 52 ? lineText.slice(0, 51) + '…' : lineText;
         octx.fillText(clipped, boxX + 10, boxY + 32 + i * rowH);
       }
     }
@@ -3174,7 +3515,7 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
     window.open(targetUrl, '_blank', 'noopener');
   };
 
-  // Mở tệp GLB từ máy
+  // Mở tệp GLB từ máy (Cách ly hoàn toàn dữ liệu Note giữa các tệp mô hình khác nhau)
   document.getElementById('openLocalBtn').onclick = () => document.getElementById('fileInput').click();
   document.getElementById('fileInput').onchange = async e => {
     const f = e.target.files?.[0];
@@ -3183,7 +3524,11 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
       loadingOverlay.style.display = 'flex';
       loadingSpinner.style.display = 'block';
       document.getElementById('loadingText').textContent = 'Đang đọc tệp GLB…';
-      document.getElementById('modelTitleText').textContent = f.name.replace(/\.glb$/i, '');
+      const newTitle = f.name.replace(/\.glb$/i, '');
+      document.getElementById('modelTitleText').textContent = newTitle;
+      document.title = newTitle + ' · 3D Viewer';
+      notesData = [];
+      loadModelNotesFromLocalStorage(true);
       parseGlbBuffer(await f.arrayBuffer());
       loadingOverlay.style.display = 'none';
     } catch (err) {
@@ -3459,6 +3804,8 @@ let notesData = [{"Id":"d51b0c46b5714d9e9c54e9b609501c9f","ParentId":null,"Autho
 
       const cloudSrc = urlParams.get('src');
       if (cloudSrc && /^https:\/\//i.test(cloudSrc.trim())) {
+        notesData = [];
+        loadModelNotesFromLocalStorage(true);
         if (loadingTextEl) loadingTextEl.textContent = 'Đang tải gói dữ liệu 3D từ Cloud…';
         await new Promise((resolve, reject) => {
           const s = document.createElement('script');
