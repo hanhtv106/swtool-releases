@@ -549,7 +549,7 @@ let notesData = [];
       void main() {
         vec4 clip = uMvp * vec4(aPos, 1.0);
         clip.xy += uScreenOffset * clip.w;
-        clip.z -= 0.00038 * clip.w;
+        clip.z -= 0.00085 * clip.w;
         gl_Position = clip;
       }
     `;
@@ -728,8 +728,8 @@ let notesData = [];
     return out;
   }
 
-  // --- TRÍCH XUẤT ĐƯỜNG CẠNH ĐẶC TRƯNG CƠ KHÍ TRÊN HỆ TỌA ĐỘ CỤC BỘ (48-BIT EXACT QUANTIZED WELDING 0-COLLISION) ---
-  function extractFeatureEdgesLocal(rawPos, triIndices, vertCount, lMin, lMax) {
+  // --- TRÍCH XUẤT ĐƯỜNG CẠNH ĐẶC TRƯNG CƠ KHÍ & CẠNH TIẾP TUYẾN B-REP (48-BIT WELDING + PLANAR/CURVED TANGENT EDGES CHUẨN EDRAWINGS) ---
+  function extractFeatureEdgesLocal(rawPos, localNorm, triIndices, vertCount, lMin, lMax) {
     const triVertCount = triIndices ? triIndices.length : (vertCount - (vertCount % 3));
     const triCount = Math.floor(triVertCount / 3);
     if (triCount <= 0 || triCount > 200000) return new Float32Array(0);
@@ -758,9 +758,10 @@ let notesData = [];
       }
     }
 
+    const hasNorm = !!(localNorm && localNorm.length >= vertCount * 3);
     const stride = vertCount + 1;
     const edgeMap = new Map();
-    // Ngưỡng góc gãy cơ khí ~18 độ (cos 18.19° ≈ 0.95): bắt trọn mép vát Chamfer, bậc trục, lỗ khoan mà vẫn lọc sạch mặt trụ mượt
+    // Ngưỡng góc gãy cơ khí ~18 độ (cos 18.19° ≈ 0.95) kết hợp nhận diện Cạnh tiếp tuyến B-Rep (Planar <-> Curved Fillet/Slot)
     const creaseCosThreshold = 0.95;
     for (let t = 0; t + 2 < triVertCount; t += 3) {
       const r0 = triIndices ? triIndices[t] : t;
@@ -778,19 +779,41 @@ let notesData = [];
       if (fl < 1e-11) continue;
       fnx /= fl; fny /= fl; fnz /= fl;
 
-      const pairs = [[c0, c1], [c1, c2], [c2, c0]];
+      // Kiểm tra tam giác thuộc Mặt phẳng B-Rep (3 pháp tuyến đỉnh song song tuyệt đối) hay Mặt cong B-Rep (Fillet R / Trụ / Cầu)
+      let isPlanarTri = false;
+      if (hasNorm) {
+        const n0x = localNorm[i0], n0y = localNorm[i0 + 1], n0z = localNorm[i0 + 2];
+        const n1x = localNorm[i1], n1y = localNorm[i1 + 1], n1z = localNorm[i1 + 2];
+        const n2x = localNorm[i2], n2y = localNorm[i2 + 1], n2z = localNorm[i2 + 2];
+        const d01 = n0x * n1x + n0y * n1y + n0z * n1z;
+        const d12 = n1x * n2x + n1y * n2y + n1z * n2z;
+        const d20 = n2x * n0x + n2y * n0y + n2z * n0z;
+        isPlanarTri = (d01 > 0.9999 && d12 > 0.9999 && d20 > 0.9999);
+      }
+
+      const cTri = [c0, c1, c2];
+      const rTri = [r0, r1, r2];
       for (let e = 0; e < 3; e++) {
-        const a = pairs[e][0], b = pairs[e][1];
+        const eNext = (e + 1) % 3;
+        const a = cTri[e], b = cTri[eNext];
         const lo = a < b ? a : b;
         const hi = a < b ? b : a;
+        const ra = rTri[e], rb = rTri[eNext];
+        const rLo = ra < rb ? ra : rb;
+        const rHi = ra < rb ? rb : ra;
         const edgeKey = lo * stride + hi;
         const entry = edgeMap.get(edgeKey);
         if (!entry) {
-          edgeMap.set(edgeKey, { a: lo, b: hi, nx: fnx, ny: fny, nz: fnz, count: 1, sharp: false });
+          edgeMap.set(edgeKey, { a: lo, b: hi, rLo, rHi, nx: fnx, ny: fny, nz: fnz, isPlanar: isPlanarTri, count: 1, sharp: false });
         } else {
           entry.count++;
-          if (!entry.sharp && (entry.nx * fnx + entry.ny * fny + entry.nz * fnz) < creaseCosThreshold) {
-            entry.sharp = true;
+          if (!entry.sharp) {
+            const faceDot = entry.nx * fnx + entry.ny * fny + entry.nz * fnz;
+            const rawShared = (entry.rLo === rLo && entry.rHi === rHi);
+            // Giữ lại cả Cạnh sắc (faceDot < 0.95) LẪN Cạnh tiếp tuyến B-Rep (!rawShared và chuyển tiếp Mặt phẳng <-> Mặt cong Fillet/Trụ)
+            if (faceDot < creaseCosThreshold || (!rawShared && hasNorm && entry.isPlanar !== isPlanarTri)) {
+              entry.sharp = true;
+            }
           }
         }
       }
@@ -817,7 +840,7 @@ let notesData = [];
     for (const g of gpuGeometries) {
       if (g._edgesBuilt) continue;
       g._edgesBuilt = true;
-      const edgePositions = extractFeatureEdgesLocal(g.rawPos, g.triIndices, g.vertCount, g.localMin, g.localMax);
+      const edgePositions = extractFeatureEdgesLocal(g.rawPos, g.localNorm, g.triIndices, g.vertCount, g.localMin, g.localMax);
       g.edgeCount = Math.floor(edgePositions.length / 3);
       if (edgePositions.length > 0) {
         g.edgeBuf = gl.createBuffer();
@@ -1014,7 +1037,7 @@ let notesData = [];
 
       const lMinArr = [lMinX, lMinY, lMinZ], lMaxArr = [lMaxX, lMaxY, lMaxZ];
       const edgePositions = allowModelEdgeExtraction
-        ? extractFeatureEdgesLocal(rawPos, triIndices, vertCount, lMinArr, lMaxArr)
+        ? extractFeatureEdgesLocal(rawPos, localNorm, triIndices, vertCount, lMinArr, lMaxArr)
         : new Float32Array(0);
       const edgeCount = Math.floor(edgePositions.length / 3);
 
@@ -1077,6 +1100,7 @@ let notesData = [];
 
       const geom = {
         rawPos,
+        localNorm,
         triIndices,
         vertCount,
         primTris,
@@ -1860,7 +1884,7 @@ let notesData = [];
     const uBaseColor = gl.getUniformLocation(glProgFace, 'uBaseColor');
 
     gl.enable(gl.POLYGON_OFFSET_FILL);
-    gl.polygonOffset(1.5, 2.5);
+    gl.polygonOffset(2.5, 5.0);
 
     let boundGeom = null;
     function drawMeshBatch(m, alphaOverride) {
