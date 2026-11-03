@@ -2059,8 +2059,35 @@ let notesData = [];
     return true;
   }
 
+  function getFrontBaseSurfacePointOfMesh(meshIdx) {
+    if (meshIdx == null || meshIdx < 0 || meshIdx >= meshes.length) return [...bounds.center];
+    const m = meshes[meshIdx];
+    const g = m.geom;
+    const bm = m.baseWorldMat || m.worldMat;
+    if (!g || !g.rawPos || g.vertCount <= 0) {
+      return [...(m.partCenter || bounds.center)];
+    }
+    const { eye } = getCameraVectors();
+    const rp = g.rawPos;
+    const step = Math.max(1, Math.floor(g.vertCount / 180));
+    let bestPt = null;
+    let bestDist2 = Infinity;
+    for (let v = 0; v < g.vertCount; v += step) {
+      const lx = rp[v*3], ly = rp[v*3+1], lz = rp[v*3+2];
+      const wx = bm[0]*lx + bm[4]*ly + bm[8]*lz  + bm[12];
+      const wy = bm[1]*lx + bm[5]*ly + bm[9]*lz  + bm[13];
+      const wz = bm[2]*lx + bm[6]*ly + bm[10]*lz + bm[14];
+      const d2 = (wx-eye[0])*(wx-eye[0]) + (wy-eye[1])*(wy-eye[1]) + (wz-eye[2])*(wz-eye[2]);
+      if (d2 < bestDist2) {
+        bestDist2 = d2;
+        bestPt = [wx, wy, wz];
+      }
+    }
+    return bestPt || [...(m.partCenter || bounds.center)];
+  }
+
   function isWorldPointOccluded(worldPt, ownerMeshIdx) {
-    if (!worldPt) return false;
+    if (!worldPt || meshes.length <= 1) return false;
     const { eye } = getCameraVectors();
     const vx = worldPt[0] - eye[0], vy = worldPt[1] - eye[1], vz = worldPt[2] - eye[2];
     const distToPt = Math.hypot(vx, vy, vz);
@@ -2068,14 +2095,14 @@ let notesData = [];
     const rayDir = [vx / distToPt, vy / distToPt, vz / distToPt];
     const hit = raycastMeshesDetailed(eye, rayDir, true);
     if (!hit) return false;
-    // Nếu tia nhìn từ camera chạm vào một chi tiết KHÁC nằm chắn phía trước -> điểm neo Note bị chi tiết đó che khuất!
-    const tolOther = Math.max(1e-4, distToPt * 0.0012);
-    if (ownerMeshIdx >= 0 && hit.meshIdx !== ownerMeshIdx && hit.distance < distToPt - tolOther) {
-      return true;
+    // Nếu tia nhìn từ camera chạm vào đúng chi tiết sở hữu Note (hit.meshIdx === ownerMeshIdx) đầu tiên
+    // -> Chi tiết đó đang nằm lộ diện ngay trước ống kính, không bị chi tiết nào khác che khuất!
+    if (ownerMeshIdx >= 0 && hit.meshIdx === ownerMeshIdx) {
+      return false;
     }
-    // Nếu tia nhìn chạm vào mặt trước của chính chi tiết đó ở khoảng cách xa hơn bề dày mặt -> Note nằm ở mặt sau bị khuất!
-    const tolSelf = Math.max(2e-4, bounds.radius * 0.022);
-    if (hit.distance < distToPt - tolSelf) {
+    // Nếu tia nhìn chạm vào một chi tiết KHÁC nằm chắn phía trước -> điểm neo Note bị chi tiết đó che khuất!
+    const tolOther = Math.max(1e-4, distToPt * 0.002);
+    if (hit.distance < distToPt - tolOther) {
       return true;
     }
     return false;
@@ -2185,7 +2212,7 @@ let notesData = [];
       const mIdx = resolveNoteMeshIndex(n);
       const basePt = n.Anchor.Point || n.Anchor.point;
       const worldPt = toCurrentMeshWorldPoint(basePt, mIdx);
-      if (activeNoteId !== n.Id && isWorldPointOccluded(worldPt, mIdx)) return;
+      if (activeNoteId !== n.Id && selectedMeshIdx !== mIdx && isWorldPointOccluded(worldPt, mIdx)) return;
 
       const pr = projectPoint(worldPt);
       if (!pr) return;
@@ -2557,9 +2584,7 @@ let notesData = [];
     let anchorPt = (sketchStrokes.length > 0 ? computeAnchorFromStrokes(sketchStrokes) : selectedNoteAnchor);
     if (!anchorPt) {
       if (targetMeshIdx >= 0 && meshes[targetMeshIdx]) {
-        const m = meshes[targetMeshIdx];
-        const bMin = m.baseMin || m.min, bMax = m.baseMax || m.max;
-        anchorPt = [(bMin[0]+bMax[0])*0.5, (bMin[1]+bMax[1])*0.5, (bMin[2]+bMax[2])*0.5];
+        anchorPt = getFrontBaseSurfacePointOfMesh(targetMeshIdx);
       } else {
         anchorPt = [...bounds.center];
       }
@@ -2630,6 +2655,7 @@ let notesData = [];
     sketchStrokes = [];
     activeStroke = null;
     sketchTargetMeshIdx = -1;
+    selectedNoteAnchor = null;
     quickNoteBodyInput.value = '';
     document.getElementById('noteBodyInput').value = '';
     quickNoteComposer.style.display = 'none';
@@ -3225,7 +3251,7 @@ let notesData = [];
         document.getElementById('noteSheetHintText').textContent = `✨ Đang đính kèm ${sketchStrokes.length} nét vẽ trên chi tiết${pName} vào Note này:`;
       } else if (selectedMeshIdx >= 0 && meshes[selectedMeshIdx]) {
         selectedNoteMeshIdx = selectedMeshIdx;
-        if (!selectedNoteAnchor) selectedNoteAnchor = [...meshes[selectedMeshIdx].partCenter];
+        if (!selectedNoteAnchor) selectedNoteAnchor = getFrontBaseSurfacePointOfMesh(selectedMeshIdx);
         document.getElementById('noteSheetHintText').textContent = `📍 Đang ghim Note vào chi tiết [${meshes[selectedMeshIdx].name}]. Nhấp lên bề mặt để đổi điểm ghim:`;
       } else {
         document.getElementById('noteSheetHintText').textContent = 'Nhấp trực tiếp vào bề mặt chi tiết 3D cần ghi chú hoặc bấm [✏️ Vẽ lên 3D] để khoanh vùng trước.';
