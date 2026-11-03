@@ -220,6 +220,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui
       <button type="button" class="swMenuItem" id="menuTransparentPartBtn"><span>💎 Đổi độ trong suốt</span><kbd>Alpha</kbd></button>
       <button type="button" class="swMenuItem" id="menuZoomPartBtn"><span>🔍 Phóng tới chi tiết</span><kbd>Zoom</kbd></button>
       <div class="swMenuSep" id="menuPartSep"></div>
+      <button type="button" class="swMenuItem" id="menuToggleEdgesBtn"><span id="menuToggleEdgesText">📐 Tắt cạnh (Chỉ tô bóng)</span><kbd>E</kbd></button>
       <button type="button" class="swMenuItem" id="menuUndoHideBtn"><span>↩ Hiện lại chi tiết vừa ẩn</span><kbd>Shift+Tab</kbd></button>
       <button type="button" class="swMenuItem" id="menuShowAllBtn"><span>🔄 Hiện tất cả chi tiết</span><kbd>Show All</kbd></button>
       <button type="button" class="swMenuItem" id="menuFitViewBtn"><span>🎯 Vừa khung màn hình</span><kbd>F / Đúp giữa</kbd></button>
@@ -356,7 +357,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui
 
     <!-- Thanh công cụ con song song: Công cụ nâng cao -->
     <div class="sheet subDock" id="advancedSheet" style="display:none" role="dialog" aria-label="Công cụ nâng cao">
-      <button type="button" class="subBtn on" id="toggleEdgesBtn" title="Bật/Tắt viền cạnh sắc cơ khí"><b id="edgesPill">📐</b><span>Cạnh</span></button>
+      <button type="button" class="subBtn on" id="toggleEdgesBtn" title="Bật/Tắt chế độ Hiện cạnh / Tắt cạnh kiểu SOLIDWORKS (Phím tắt: E)"><b id="edgesPill">📐</b><span id="advEdgesLabel">Hiện cạnh</span></button>
       <button type="button" class="subBtn on" id="toggleShadowBtn" title="Bật/Tắt bóng tiếp xúc dưới đáy"><b id="shadowPill">🌑</b><span>Bóng</span></button>
       <button type="button" class="subBtn" id="toggleAoBtn" title="Bật/Tắt chiều sâu khe góc (AO)"><b id="aoPill">🕳️</b><span>AO</span></button>
       <button type="button" class="subBtn" id="toggleThemeBtn" title="Chuyển nền Sáng / Tối"><b id="themePill">🌙</b><span>Nền tối</span></button>
@@ -381,6 +382,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui
         <li><b>Giữ Shift + Chuột Giữa kéo:</b> Phóng to / thu nhỏ liên tục</li>
         <li><b>Lăn Chuột Giữa:</b> Phóng to / thu nhỏ tại vị trí con trỏ (Zoom to Cursor)</li>
         <li><b>Nhấp đúp Chuột Giữa (hoặc phím F):</b> Vừa khung màn hình (Zoom to Fit)</li>
+        <li><b>Phím E (hoặc nút Hiện cạnh / Tắt cạnh):</b> Chuyển nhanh chế độ Hiện cạnh / Tắt cạnh</li>
         <li><b>Trỏ lên chi tiết + bấm phím Tab:</b> Ẩn nhanh chi tiết (<b>Shift+Tab</b>: Hiện lại)</li>
         <li><b>Nhấp Chuột Trái / Phải vào chi tiết:</b> Chọn, Cô lập (Isolate), Trong suốt</li>
         <li><b>Phím Space / Ctrl+1..7:</b> Chọn nhanh 7 góc nhìn chuẩn CAD</li>
@@ -397,6 +399,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui
       <div class="dockGroup">
         <button type="button" class="dockBtn" id="fitBtn" title="Vừa khung màn hình (Phím F hoặc Nhấp đúp Chuột Giữa)"><span>🎯</span><span>Vừa khung</span></button>
         <button type="button" class="dockBtn" data-sheet="viewsSheet" title="Góc nhìn chuẩn CAD (Phím Space)"><span>🧭</span><span>Góc nhìn</span></button>
+        <button type="button" class="dockBtn active" id="dockEdgesBtn" title="Chuyển chế độ Hiện cạnh / Tắt cạnh kiểu SOLIDWORKS (Phím tắt: E)"><span id="dockEdgesIcon">📐</span><span id="dockEdgesLabel">Hiện cạnh</span></button>
         <button type="button" class="dockBtn" id="partsToolBtn" title="Cây chi tiết lắp ghép, Ẩn/Cô lập &amp; Tách cụm (Exploded View)"><span>🧩</span><span>Chi tiết</span></button>
         <button type="button" class="dockBtn" id="measureToolBtn" title="Đo khoảng cách L, Bán kính R, Đường kính Ø"><span>📏</span><span>Đo</span></button>
         <button type="button" class="dockBtn" id="noteToolBtn" title="Gắn ghi chú Note 3D"><span>📝</span><span>Note</span></button>
@@ -450,6 +453,7 @@ let notesData = [];
   const glAttrs = { preserveDrawingBuffer: false, antialias: true, depth: true, alpha: true, powerPreference: 'high-performance' };
   const gl = canvas.getContext('webgl', glAttrs) || canvas.getContext('experimental-webgl', glAttrs);
   const extUint = gl ? gl.getExtension('OES_element_index_uint') : null;
+  const extDerivatives = gl ? gl.getExtension('OES_standard_derivatives') : null;
   const loadingOverlay = document.getElementById('loadingOverlay');
   const loadingSpinner = document.getElementById('loadingSpinner');
   const labelsContainer = document.getElementById('labelsContainer');
@@ -493,7 +497,10 @@ let notesData = [];
         gl_Position = uMvpModel * vec4(aPos, 1.0);
       }
     `;
-    const fsFaceSrc = `
+    const derivHeader = extDerivatives
+      ? '#extension GL_OES_standard_derivatives : enable\n#define HAS_DERIVATIVES 1\n'
+      : '';
+    const fsFaceSrc = derivHeader + `
       #ifdef GL_FRAGMENT_PRECISION_HIGH
       precision highp float;
       #else
@@ -507,6 +514,7 @@ let notesData = [];
       uniform vec3 uFillLight;
       uniform vec4 uBaseColor;
       uniform int uDebugMode;
+      uniform int uShowEdges;
       uniform float uAoFactor;
       void main() {
         vec3 n = normalize(vNorm);
@@ -529,6 +537,15 @@ let notesData = [];
         float spec = pow(max(0.0, dot(n, halfVec)), 28.0) * 0.22;
         float shade = (0.30 + 0.54 * keyDiff + 0.22 * fillDiff + 0.08 * hemi) * uAoFactor;
         vec3 finalRgb = clamp(base * shade + vec3(spec * uAoFactor), 0.0, 1.0);
+        #ifdef HAS_DERIVATIVES
+        if (uShowEdges == 1) {
+          vec3 dndx = dFdx(n);
+          vec3 dndy = dFdy(n);
+          float normJump = length(dndx) + length(dndy);
+          float creaseFactor = smoothstep(0.26, 0.62, normJump);
+          finalRgb = mix(finalRgb, finalRgb * 0.20, creaseFactor * 0.80);
+        }
+        #endif
         gl_FragColor = vec4(finalRgb, uBaseColor.a);
       }
     `;
@@ -714,51 +731,100 @@ let notesData = [];
     return out;
   }
 
-  // --- TRÍCH XUẤT ĐƯỜNG CẠNH ĐẶC TRƯNG CƠ KHÍ TRÊN HỆ TỌA ĐỘ CỤC BỘ (LOCAL-SPACE CREASE EDGES) ---
-  function extractFeatureEdgesLocal(rawPos, triIndices, vertCount) {
+  // --- TRÍCH XUẤT ĐƯỜNG CẠNH ĐẶC TRƯNG CƠ KHÍ TRÊN HỆ TỌA ĐỘ CỤC BỘ (NUMERIC-HASH CREASE EDGES 0-STRING) ---
+  function extractFeatureEdgesLocal(rawPos, triIndices, vertCount, lMin, lMax) {
     const triVertCount = triIndices ? triIndices.length : (vertCount - (vertCount % 3));
     const triCount = Math.floor(triVertCount / 3);
-    if (triCount <= 0 || triCount > 18000) return new Float32Array(0);
-    const edgeMap = new Map();
-    function qKey(x, y, z) {
-      return `${Math.round(x * 1e5)},${Math.round(y * 1e5)},${Math.round(z * 1e5)}`;
+    if (triCount <= 0 || triCount > 45000) return new Float32Array(0);
+
+    const minX = lMin ? lMin[0] : -1, minY = lMin ? lMin[1] : -1, minZ = lMin ? lMin[2] : -1;
+    const spanX = Math.max(1e-6, (lMax ? lMax[0] : 1) - minX);
+    const spanY = Math.max(1e-6, (lMax ? lMax[1] : 1) - minY);
+    const spanZ = Math.max(1e-6, (lMax ? lMax[2] : 1) - minZ);
+    const scaleX = 65535.0 / spanX, scaleY = 65535.0 / spanY, scaleZ = 65535.0 / spanZ;
+
+    const canonVert = new Int32Array(vertCount);
+    const hashToVert = new Map();
+    for (let v = 0; v < vertCount; v++) {
+      const idx3 = v * 3;
+      const qx = Math.round((rawPos[idx3] - minX) * scaleX) | 0;
+      const qy = Math.round((rawPos[idx3 + 1] - minY) * scaleY) | 0;
+      const qz = Math.round((rawPos[idx3 + 2] - minZ) * scaleZ) | 0;
+      const h = (Math.imul(qx, 73856093) ^ Math.imul(qy, 19349663) ^ Math.imul(qz, 83492791)) >>> 0;
+      const existing = hashToVert.get(h);
+      if (existing !== undefined) {
+        canonVert[v] = existing;
+      } else {
+        hashToVert.set(h, v);
+        canonVert[v] = v;
+      }
     }
-    for (let t = 0; t < triVertCount; t += 3) {
-      const i0 = (triIndices ? triIndices[t] : t) * 3;
-      const i1 = (triIndices ? triIndices[t+1] : (t+1)) * 3;
-      const i2 = (triIndices ? triIndices[t+2] : (t+2)) * 3;
-      const p0x = rawPos[i0], p0y = rawPos[i0+1], p0z = rawPos[i0+2];
-      const p1x = rawPos[i1], p1y = rawPos[i1+1], p1z = rawPos[i1+2];
-      const p2x = rawPos[i2], p2y = rawPos[i2+1], p2z = rawPos[i2+2];
-      const ux = p1x - p0x, uy = p1y - p0y, uz = p1z - p0z;
-      const vx = p2x - p0x, vy = p2y - p0y, vz = p2z - p0z;
-      let fnx = uy*vz - uz*vy, fny = uz*vx - ux*vz, fnz = ux*vy - uy*vx;
-      const fl = Math.hypot(fnx, fny, fnz) || 1.0;
+
+    const stride = vertCount + 1;
+    const edgeMap = new Map();
+    for (let t = 0; t + 2 < triVertCount; t += 3) {
+      const r0 = triIndices ? triIndices[t] : t;
+      const r1 = triIndices ? triIndices[t + 1] : (t + 1);
+      const r2 = triIndices ? triIndices[t + 2] : (t + 2);
+      const c0 = canonVert[r0], c1 = canonVert[r1], c2 = canonVert[r2];
+      if (c0 === c1 || c1 === c2 || c2 === c0) continue;
+
+      const i0 = r0 * 3, i1 = r1 * 3, i2 = r2 * 3;
+      const p0x = rawPos[i0], p0y = rawPos[i0 + 1], p0z = rawPos[i0 + 2];
+      const ux = rawPos[i1] - p0x, uy = rawPos[i1 + 1] - p0y, uz = rawPos[i1 + 2] - p0z;
+      const vx = rawPos[i2] - p0x, vy = rawPos[i2 + 1] - p0y, vz = rawPos[i2 + 2] - p0z;
+      let fnx = uy * vz - uz * vy, fny = uz * vx - ux * vz, fnz = ux * vy - uy * vx;
+      const fl = Math.hypot(fnx, fny, fnz);
+      if (fl < 1e-11) continue;
       fnx /= fl; fny /= fl; fnz /= fl;
-      const k0 = qKey(p0x, p0y, p0z), k1 = qKey(p1x, p1y, p1z), k2 = qKey(p2x, p2y, p2z);
-      const pts = [[p0x,p0y,p0z,k0], [p1x,p1y,p1z,k1], [p2x,p2y,p2z,k2]];
+
+      const pairs = [[c0, c1], [c1, c2], [c2, c0]];
       for (let e = 0; e < 3; e++) {
-        const a = pts[e], b = pts[(e + 1) % 3];
-        if (a[3] === b[3]) continue;
-        const edgeKey = a[3] < b[3] ? `${a[3]}|${b[3]}` : `${b[3]}|${a[3]}`;
-        let entry = edgeMap.get(edgeKey);
+        const a = pairs[e][0], b = pairs[e][1];
+        const lo = a < b ? a : b;
+        const hi = a < b ? b : a;
+        const edgeKey = lo * stride + hi;
+        const entry = edgeMap.get(edgeKey);
         if (!entry) {
-          entry = { p0x: a[0], p0y: a[1], p0z: a[2], p1x: b[0], p1y: b[1], p1z: b[2], nx: fnx, ny: fny, nz: fnz, count: 1, sharp: false };
-          edgeMap.set(edgeKey, entry);
+          edgeMap.set(edgeKey, { a: lo, b: hi, nx: fnx, ny: fny, nz: fnz, count: 1, sharp: false });
         } else {
           entry.count++;
-          const cosAngle = entry.nx*fnx + entry.ny*fny + entry.nz*fnz;
-          if (cosAngle < 0.88) entry.sharp = true;
+          if (!entry.sharp && (entry.nx * fnx + entry.ny * fny + entry.nz * fnz) < 0.88) {
+            entry.sharp = true;
+          }
         }
       }
     }
-    const segs = [];
+
+    let sharpEdgeCount = 0;
+    for (const entry of edgeMap.values()) {
+      if (entry.count === 1 || entry.sharp) sharpEdgeCount++;
+    }
+    const out = new Float32Array(sharpEdgeCount * 6);
+    let ptr = 0;
     for (const entry of edgeMap.values()) {
       if (entry.count === 1 || entry.sharp) {
-        segs.push(entry.p0x, entry.p0y, entry.p0z, entry.p1x, entry.p1y, entry.p1z);
+        const ia = entry.a * 3, ib = entry.b * 3;
+        out[ptr++] = rawPos[ia];     out[ptr++] = rawPos[ia + 1]; out[ptr++] = rawPos[ia + 2];
+        out[ptr++] = rawPos[ib];     out[ptr++] = rawPos[ib + 1]; out[ptr++] = rawPos[ib + 2];
       }
     }
-    return new Float32Array(segs);
+    return out;
+  }
+
+  function ensureGeometryEdgesBuilt() {
+    if (!gl || !showEdges) return;
+    for (const g of gpuGeometries) {
+      if (g._edgesBuilt) continue;
+      g._edgesBuilt = true;
+      const edgePositions = extractFeatureEdgesLocal(g.rawPos, g.triIndices, g.vertCount, g.localMin, g.localMax);
+      g.edgeCount = Math.floor(edgePositions.length / 3);
+      if (edgePositions.length > 0) {
+        g.edgeBuf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, g.edgeBuf);
+        gl.bufferData(gl.ARRAY_BUFFER, edgePositions, gl.STATIC_DRAW);
+      }
+    }
   }
 
   function resolveMaterialColor(gltf, matIdx) {
@@ -839,7 +905,7 @@ let notesData = [];
         }
       }
     }
-    const allowModelEdgeExtraction = estimatedTotalTris <= 65000;
+    const allowModelEdgeExtraction = estimatedTotalTris <= 250000;
 
     const geomByAccKey = new Map();
     const geomByHashKey = new Map();
@@ -946,8 +1012,9 @@ let notesData = [];
         }
       }
 
+      const lMinArr = [lMinX, lMinY, lMinZ], lMaxArr = [lMaxX, lMaxY, lMaxZ];
       const edgePositions = allowModelEdgeExtraction
-        ? extractFeatureEdgesLocal(rawPos, triIndices, vertCount)
+        ? extractFeatureEdgesLocal(rawPos, triIndices, vertCount, lMinArr, lMaxArr)
         : new Float32Array(0);
       const edgeCount = Math.floor(edgePositions.length / 3);
 
@@ -1014,15 +1081,16 @@ let notesData = [];
         vertCount,
         primTris,
         drawCount,
-        localMin: [lMinX, lMinY, lMinZ],
-        localMax: [lMaxX, lMaxY, lMaxZ],
+        localMin: lMinArr,
+        localMax: lMaxArr,
         posBuf,
         normBuf,
         colBuf,
         idxBuf,
         indexGlType,
         edgeBuf,
-        edgeCount
+        edgeCount,
+        _edgesBuilt: allowModelEdgeExtraction
       };
       gpuGeometries.push(geom);
       geomByAccKey.set(accKey, geom);
@@ -1780,6 +1848,7 @@ let notesData = [];
     gl.uniform3fv(gl.getUniformLocation(glProgFace, 'uFillLight'), new Float32Array(fillLight));
     const dbgInt = debugMode === 'normals' ? 1 : debugMode === 'albedo' ? 2 : 0;
     gl.uniform1i(gl.getUniformLocation(glProgFace, 'uDebugMode'), dbgInt);
+    gl.uniform1i(gl.getUniformLocation(glProgFace, 'uShowEdges'), showEdges ? 1 : 0);
     gl.uniform1f(gl.getUniformLocation(glProgFace, 'uAoFactor'), showAo ? 0.86 : 1.0);
 
     const aPos = gl.getAttribLocation(glProgFace, 'aPos');
@@ -1882,9 +1951,10 @@ let notesData = [];
 
     // Vẽ đường cạnh đặc trưng (Feature Edges) không bị răng cưa lưới tam giác trên mặt trụ
     if (showEdges) {
+      ensureGeometryEdgesBuilt();
       gl.useProgram(glProgEdge);
       const uEdgeMvp = gl.getUniformLocation(glProgEdge, 'uMvp');
-      const edgeCol = isDark ? [0.85, 0.90, 0.96, 0.42] : [0.08, 0.13, 0.22, 0.45];
+      const edgeCol = isDark ? [0.88, 0.92, 0.98, 0.55] : [0.06, 0.11, 0.20, 0.58];
       gl.uniform4f(gl.getUniformLocation(glProgEdge, 'uEdgeColor'), edgeCol[0], edgeCol[1], edgeCol[2], edgeCol[3]);
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -1955,6 +2025,11 @@ let notesData = [];
       ctx.moveTo(t.pa[0], t.pa[1]); ctx.lineTo(t.pb[0], t.pb[1]); ctx.lineTo(t.pc[0], t.pc[1]);
       ctx.closePath();
       ctx.fill();
+      if (showEdges) {
+        ctx.strokeStyle = isDark ? 'rgba(226, 232, 240, 0.28)' : 'rgba(15, 23, 42, 0.28)';
+        ctx.lineWidth = 0.65;
+        ctx.stroke();
+      }
     }
     ctx.restore();
   }
@@ -3012,6 +3087,11 @@ let notesData = [];
       fitCamera(true);
       return;
     }
+    if (e.key === 'e' || e.key === 'E') {
+      e.preventDefault();
+      setShowEdges(!showEdges);
+      return;
+    }
     if (e.key === ' ') {
       e.preventDefault();
       const viewsBtn = document.querySelector('[data-sheet="viewsSheet"]');
@@ -3065,6 +3145,7 @@ let notesData = [];
   document.getElementById('menuIsolatePartBtn').onclick = () => { hideSwContextMenu(); if (contextMenuMeshIdx >= 0) isolateMeshByIndex(contextMenuMeshIdx); };
   document.getElementById('menuTransparentPartBtn').onclick = () => { hideSwContextMenu(); if (contextMenuMeshIdx >= 0) toggleMeshTransparency(contextMenuMeshIdx); };
   document.getElementById('menuZoomPartBtn').onclick = () => { hideSwContextMenu(); if (contextMenuMeshIdx >= 0) zoomToMeshByIndex(contextMenuMeshIdx); };
+  document.getElementById('menuToggleEdgesBtn').onclick = () => { hideSwContextMenu(); setShowEdges(!showEdges); };
   document.getElementById('menuUndoHideBtn').onclick = () => { hideSwContextMenu(); undoLastHide(); };
   document.getElementById('menuShowAllBtn').onclick = () => { hideSwContextMenu(); showAllMeshes(); };
   document.getElementById('menuFitViewBtn').onclick = () => { hideSwContextMenu(); fitCamera(true); };
@@ -3098,7 +3179,13 @@ let notesData = [];
     el.style.display = el.classList.contains('subDock') ? 'flex' : 'block';
   }
   function setActiveDockBtn(activeBtn) {
-    document.querySelectorAll('.dockBtn').forEach(b => b.classList.toggle('active', b === activeBtn));
+    document.querySelectorAll('.dockBtn').forEach(b => {
+      if (b.id === 'dockEdgesBtn') {
+        b.classList.toggle('active', showEdges);
+      } else {
+        b.classList.toggle('active', b === activeBtn);
+      }
+    });
   }
   function closeAllSheets() {
     document.querySelectorAll('.sheet').forEach(s => s.style.display = 'none');
@@ -3493,10 +3580,29 @@ let notesData = [];
   document.getElementById('captureSketchBtn').onclick = () => exportAnnotatedPngAsync();
   document.getElementById('captureReportHeaderBtn').onclick = () => exportAnnotatedPngAsync();
 
-  // Công cụ nâng cao
-  document.getElementById('toggleEdgesBtn').onclick = function() {
-    showEdges = !showEdges; this.classList.toggle('on', showEdges); renderScene();
-  };
+  // Chuyển chế độ Hiện cạnh (Shaded With Edges) / Tắt cạnh (Shaded) chuẩn SOLIDWORKS & eDrawings
+  function setShowEdges(enabled) {
+    showEdges = !!enabled;
+    const dockBtn = document.getElementById('dockEdgesBtn');
+    const dockIcon = document.getElementById('dockEdgesIcon');
+    const dockLbl = document.getElementById('dockEdgesLabel');
+    if (dockBtn) dockBtn.classList.toggle('active', showEdges);
+    if (dockIcon) dockIcon.textContent = showEdges ? '📐' : '🧊';
+    if (dockLbl) dockLbl.textContent = showEdges ? 'Hiện cạnh' : 'Tắt cạnh';
+
+    const advBtn = document.getElementById('toggleEdgesBtn');
+    const advLbl = document.getElementById('advEdgesLabel');
+    if (advBtn) advBtn.classList.toggle('on', showEdges);
+    if (advLbl) advLbl.textContent = showEdges ? 'Hiện cạnh' : 'Tắt cạnh';
+
+    const menuTxt = document.getElementById('menuToggleEdgesText');
+    if (menuTxt) menuTxt.textContent = showEdges ? '🧊 Tắt cạnh (Chỉ tô bóng)' : '📐 Hiện cạnh (Kèm viền cạnh)';
+
+    renderScene();
+  }
+
+  document.getElementById('dockEdgesBtn').onclick = () => setShowEdges(!showEdges);
+  document.getElementById('toggleEdgesBtn').onclick = () => setShowEdges(!showEdges);
   document.getElementById('toggleShadowBtn').onclick = function() {
     showShadow = !showShadow; this.classList.toggle('on', showShadow); renderScene();
   };
